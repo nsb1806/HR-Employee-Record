@@ -1,13 +1,15 @@
-<?php 
-    require_once '../../db.php'; 
+<?php
+    require_once '../../db.php';
     session_start();
     if (!isset($_SESSION['user_id'])) { header("Location: ../../index.php"); exit; }
 
-    $id = intval($_GET['id']);
+    $id = intval($_GET['id'] ?? 0);
     $stmt = $conn->prepare("SELECT * FROM employees WHERE employee_id = ?");
     $stmt->bind_param("i", $id);
     $stmt->execute();
     $row = $stmt->get_result()->fetch_assoc();
+
+    if (!$row) { exit("Employee not found."); }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,8 +40,7 @@
                         </div>
                         <div>
                             <label>Date of Birth</label>
-                            <input type="date" name="dob" value="<?php echo htmlspecialchars($row['date_of_birth'] ?? ''); ?>" style="width: 100%;"> <br><br>
-                        </div>
+                            <input type="date" name="birth_date" value="<?php echo htmlspecialchars($row['birth_date'] ?? ''); ?>" style="width: 100%;"> <br><br>
                         </div>
                         <div>
                             <label>Department</label>

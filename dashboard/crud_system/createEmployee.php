@@ -1,5 +1,5 @@
-<?php 
-    require_once '../../db.php'; 
+<?php
+    require_once '../../db.php';
     session_start();
     if (!isset($_SESSION['user_id'])) { header("Location: ../../index.php"); exit; }
 ?>
@@ -15,7 +15,7 @@
         <?php include('../../includes/sidebar.php'); ?>
         <main class="dashboard-main-content">
             <?php include('../../includes/header.php'); ?>
-            
+
             <div class="directory-container">
                 <h2>Register New Employee</h2><br><br>
                 <form action="process_add.php" method="POST" class="styled-form">
@@ -34,7 +34,7 @@
                     </div>
                     <div>
                         <label>Date of Birth</label>
-                        <input type="date" id="dob" name="dob">
+                        <input type="date" id="birth_date" name="birth_date">
                     </div>
                     <div>
                         <label>Department</label>

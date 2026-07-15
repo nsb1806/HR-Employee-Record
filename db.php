@@ -4,9 +4,12 @@
     $password = "";
     $database = "hr_employee_record";
 
-    $conn = mysqli_connect($servername, $username, $password, $database);
+    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
+    try {
+        $conn = mysqli_connect($servername, $username, $password, $database);
+        mysqli_set_charset($conn, "utf8mb4");
+    } catch (mysqli_sql_exception $e) {
+        die("Connection failed: " . $e->getMessage());
     }
 ?>

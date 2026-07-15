@@ -1,4 +1,4 @@
-<?php 
+<?php
     require_once '../db.php';
     if (session_status() == PHP_SESSION_NONE) { session_start(); }
     if (!isset($_SESSION['user_id'])) { header("Location: ../index.php"); exit; }
@@ -13,7 +13,7 @@
 <body>
     <div class="dashboard-wrapper">
         <?php include('../includes/sidebar.php'); ?>
-        
+
         <main class="dashboard-main-content">
             <?php include('../includes/header.php'); ?>
 
@@ -24,3 +24,7 @@
             </div>
 
             <?php include('../includes/footer.php'); ?>
+        </main>
+    </div>
+</body>
+</html>

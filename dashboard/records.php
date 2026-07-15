@@ -1,4 +1,4 @@
-<?php 
+<?php
     require_once '../db.php';
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
@@ -76,21 +76,21 @@
 
                     <!-- FILTER / SEARCH UTILITY WRAPPER -->
                     <form method="GET" action="" class="filter-wrapper" style="display: flex; gap: 20px; align-items: flex-end; background: #fff; padding: 15px; border-radius: 8px; border: 1px solid #e0e0e0; margin-bottom: 20px;">
-                        
+
                         <!-- Search Field -->
                         <div style="flex: 3; min-width: 250px;">
                             <input type="text" name="search" value="<?php echo htmlspecialchars($_GET['search'] ?? ''); ?>" placeholder="🔍 Search by Name..." style="width: 100%; padding: 10px 12px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 0.95rem;">
                         </div>
-                        
+
                         <!-- Filter Dropdowns -->
                         <div class="filter-dropdowns" style="display: flex; gap: 15px; flex: 1.2;">
-                            
+
                             <!-- Department Filter -->
                             <div class="filter-item" style="flex: 1;">
                                 <small style="display: block; font-weight: bold; color: #7f8c8d; margin-bottom: 4px;">DEPARTMENT</small>
                                 <select name="department" onchange="this.form.submit()" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; background: #fff;">
                                     <option value="">View All</option>
-                                    <?php 
+                                    <?php
                                     $dept_query = "SELECT DISTINCT department FROM employees WHERE department IS NOT NULL AND department != ''";
                                     $dept_res = mysqli_query($conn, $dept_query);
                                     while ($dept_row = mysqli_fetch_assoc($dept_res)) {
@@ -125,16 +125,16 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php 
+                                <?php
                                 if ($emp_result && mysqli_num_rows($emp_result) > 0) {
                                     while ($row = mysqli_fetch_assoc($emp_result)) {
                                         $first_name = htmlspecialchars($row['first_name'] ?? '');
                                         $last_name = htmlspecialchars($row['last_name'] ?? '');
-                                        $position = htmlspecialchars($row['position'] ?? 'Staff Member'); 
+                                        $position = htmlspecialchars($row['position'] ?? 'Staff Member');
                                         $department = htmlspecialchars($row['department'] ?? 'Unassigned');
                                         $email = htmlspecialchars($row['email'] ?? 'n/a');
-                                        $phone = htmlspecialchars($row['contact_number'] ?? 'n/a'); 
-                                        
+                                        $phone = htmlspecialchars($row['contact_number'] ?? 'n/a');
+
                                         $initials = strtoupper(substr($first_name, 0, 1) . substr($last_name, 0, 1));
                                         ?>
                                         <tr>
@@ -157,7 +157,6 @@
                                             </td>
                                             <td><span class="email-link"><?php echo $email; ?></span></td>
                                             <td><span class="phone-text"><?php echo $phone; ?></span></td>
-                                            </td>
                                         </tr>
                                         <?php
                                     }
@@ -172,6 +171,7 @@
 
             <!-- 6. INCLUDE FOOTER -->
             <?php include('../includes/footer.php'); ?>
+            </main>
         </div>
     </body>
 </html>

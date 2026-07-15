@@ -1,4 +1,4 @@
-<?php 
+<?php
 
     include("db.php");
 
@@ -24,7 +24,17 @@
         if ($result && mysqli_num_rows($result) > 0) {
             $user = mysqli_fetch_assoc($result);
 
-            if (password_verify($postedPassword, $user['password'])) {
+            $passwordMatches = password_verify($postedPassword, $user['password']);
+
+            if (!$passwordMatches && hash_equals($user['password'], $postedPassword)) {
+                $passwordMatches = true;
+                $newHash = password_hash($postedPassword, PASSWORD_BCRYPT);
+                $updateStmt = $conn->prepare("UPDATE users SET password = ? WHERE user_id = ?");
+                $updateStmt->bind_param("si", $newHash, $user['user_id']);
+                $updateStmt->execute();
+            }
+
+            if ($passwordMatches) {
                 $_SESSION["user_id"] = $user['user_id'];
                 $_SESSION["username"] = $user['username'];
                 header("Location: dashboard/index.php");
